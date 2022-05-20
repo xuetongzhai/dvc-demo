@@ -3,3 +3,4 @@
 ['remote "storage"']
     url = s3://zhaix/dvc-repos/dvc-demo
     endpointurl = http://192.168.196.200:9000
+    profile = lab-s3
