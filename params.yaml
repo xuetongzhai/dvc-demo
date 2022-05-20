@@ -1,0 +1,3 @@
+prepare:
+  seed: 123
+  N: 12

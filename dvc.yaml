@@ -1,0 +1,50 @@
+stages:
+  prepare:
+    cmd: matlab -nodisplay -r "run('src/prepare.m');quit"
+    deps:
+    - src/prepare.m
+    params:
+    - prepare.N
+    - prepare.seed
+    outs:
+    - data/prepared
+  analysis:
+    cmd: matlab -nodisplay -r "run('src/analysis.m');quit"
+    deps:
+    - data/prepared
+    - src/analysis.m
+    outs:
+    - data/roc_stats
+  evaluate:
+    cmd: matlab -nodisplay -r "run('src/evaluate.m');quit"
+    deps:
+    - data/roc_stats
+    - src/evaluate.m
+    metrics:
+    - scores.json:
+        cache: false
+    plots:
+    - fpr_hbo.json:
+        cache: false
+        x: p_hat
+        y: fpr
+    - fpr_hbr.json:
+        cache: false
+        x: p_hat
+        y: fpr
+    - fpr_joint.json:
+        cache: false
+        x: p_hat
+        y: fpr
+    - roc_hbo.json:
+        cache: false
+        x: fpr
+        y: tpr
+    - roc_hbr.json:
+        cache: false
+        x: fpr
+        y: tpr
+    - roc_joint.json:
+        cache: false
+        x: fpr
+        y: tpr
